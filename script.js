@@ -40,6 +40,7 @@ const SK="eotc_v6";
 const PIN_KEY="eotc_pin_v6";
 const CFG_KEY="eotc_cfg_v6";
 const ADMIN_KEY="eotc_admin_access_v1";
+const ADMIN_SESSION_KEY="eotc_admin_session_v1";
 const GAME_META_KEY="eotc_game_meta_v1";
 
 const ld=()=>{try{const d=localStorage.getItem(SK);return d?JSON.parse(d):[]}catch{return[]}};
@@ -63,6 +64,37 @@ function getPin(){
   return localStorage.getItem(PIN_KEY)||'';
 }
 
+function isValidAdminPin(value){
+  return /^\d{4,8}$/.test((value||'').trim());
+}
+
+function getAdminPin(){
+  const raw=(localStorage.getItem(ADMIN_KEY)||'').trim();
+  if(isValidAdminPin(raw))return raw;
+  if(raw)localStorage.removeItem(ADMIN_KEY);
+  return '';
+}
+
+function isAdminLoggedIn(){
+  return localStorage.getItem(ADMIN_SESSION_KEY)==='1';
+}
+
+function setAdminLoggedIn(isLoggedIn){
+  if(isLoggedIn)localStorage.setItem(ADMIN_SESSION_KEY,'1');
+  else localStorage.removeItem(ADMIN_SESSION_KEY);
+}
+
+function promptAdminPin(msg){
+  const input=prompt(msg||'Enter Teacher/Admin PIN (4-8 digits).');
+  if(input===null)return '';
+  const clean=input.trim();
+  if(!isValidAdminPin(clean)){
+    alert('Admin PIN must be 4 to 8 digits.');
+    return '';
+  }
+  return clean;
+}
+
 function promptStudentPin(msg){
   const input=prompt(msg||'Enter student session PIN (4-8 digits).');
   if(input===null)return '';
@@ -72,6 +104,46 @@ function promptStudentPin(msg){
     return '';
   }
   return clean;
+}
+
+function showSetupError(msg){
+  const e=document.getElementById('setup-err');
+  e.textContent=msg;
+  e.style.display='block';
+}
+
+function toggleSetupCard(show){
+  const setup=document.getElementById('setup-card');
+  const help=document.getElementById('admin-login-help');
+  const login=document.getElementById('pi').closest('.card');
+  setup.style.display=show?'block':'none';
+  login.style.display=show?'none':'block';
+  help.textContent=show?'Create Teacher/Admin PIN and Student PIN below':'Enter your Teacher/Admin access code';
+  if(!show){
+    document.getElementById('setup-err').style.display='none';
+    document.getElementById('setup-admin-pin').value='';
+    document.getElementById('setup-admin-pin-confirm').value='';
+    document.getElementById('setup-student-pin').value='';
+    document.getElementById('setup-student-pin-confirm').value='';
+  }
+}
+
+function savePinSetup(){
+  const ap=document.getElementById('setup-admin-pin').value.trim();
+  const ap2=document.getElementById('setup-admin-pin-confirm').value.trim();
+  const sp=document.getElementById('setup-student-pin').value.trim();
+  const sp2=document.getElementById('setup-student-pin-confirm').value.trim();
+
+  if(!/^\d{4,8}$/.test(ap))return showSetupError('Teacher/Admin PIN must be 4 to 8 digits.');
+  if(ap!==ap2)return showSetupError('Teacher/Admin PINs do not match.');
+  if(!/^\d{4,8}$/.test(sp))return showSetupError('Student PIN must be 4 to 8 digits.');
+  if(sp!==sp2)return showSetupError('Student PINs do not match.');
+
+  localStorage.setItem(ADMIN_KEY,ap);
+  localStorage.setItem(PIN_KEY,sp);
+  updateHomePinVisibility();
+  toggleSetupCard(false);
+  alert('Setup complete. You can now log in using your Teacher/Admin PIN.');
 }
 
 function setStudentPin(){
@@ -178,6 +250,11 @@ function goHome(){
   document.getElementById('student-pin').value='';
   // Show/hide PIN entry based on whether PIN is required
   updateHomePinVisibility();
+}
+
+function adminLogout(){
+  setAdminLoggedIn(false);
+  goHome();
 }
 
 function updateHomePinVisibility(){
@@ -338,27 +415,21 @@ function showLB(){
 // ADMIN
 // ══════════════════════════════════════════════
 function ensureAdminCode(){
-  let code=localStorage.getItem(ADMIN_KEY);
+  let code=getAdminPin();
   if(code)return code;
 
-  const first=prompt('Create a Teacher/Admin access code (4-20 characters).');
-  if(first===null)return '';
-  const cleanFirst=first.trim();
-  if(cleanFirst.length<4||cleanFirst.length>20){
-    alert('Access code must be between 4 and 20 characters.');
-    return '';
-  }
+  const cleanFirst=promptAdminPin('Create a Teacher/Admin PIN (4-8 digits).');
+  if(!cleanFirst)return '';
 
-  const second=prompt('Confirm your Teacher/Admin access code.');
-  if(second===null)return '';
-  const cleanSecond=second.trim();
+  const cleanSecond=promptAdminPin('Confirm your Teacher/Admin PIN.');
+  if(!cleanSecond)return '';
   if(cleanFirst!==cleanSecond){
-    alert('Codes do not match. Please try again.');
+    alert('PINs do not match. Please try again.');
     return '';
   }
 
   localStorage.setItem(ADMIN_KEY,cleanFirst);
-  alert('Teacher/Admin access code saved.');
+  alert('Teacher/Admin PIN saved.');
   return cleanFirst;
 }
 
@@ -385,50 +456,54 @@ function setupBothPins(){
 }
 
 function ensurePinsSetup(){
-  const adminCode=localStorage.getItem(ADMIN_KEY)||'';
+  const adminCode=getAdminPin();
   const studentPin=getPin();
   if(adminCode&&studentPin)return true;
 
-  if(!confirm('You need both a Teacher/Admin access code and Student PIN. Set them up now?'))return false;
-  return setupBothPins();
+  setPageView('admin');
+  show('s-al');
+  toggleSetupCard(true);
+  return false;
 }
 
 function changeAdminCode(){
-  const current=localStorage.getItem(ADMIN_KEY)||'';
+  const current=getAdminPin();
   if(!current){
     if(!ensureAdminCode())return;
   }else{
-    const oldCode=prompt('Enter current Teacher/Admin access code.');
-    if(oldCode===null)return;
-    if(oldCode.trim()!==current){
-      alert('Current access code is incorrect.');
+    const oldCode=promptAdminPin('Enter current Teacher/Admin PIN.');
+    if(!oldCode)return;
+    if(oldCode!==current){
+      alert('Current PIN is incorrect.');
       return;
     }
   }
 
-  const first=prompt('Enter new Teacher/Admin access code (4-20 characters).');
-  if(first===null)return;
-  const cleanFirst=first.trim();
-  if(cleanFirst.length<4||cleanFirst.length>20){
-    alert('Access code must be between 4 and 20 characters.');
-    return;
-  }
+  const cleanFirst=promptAdminPin('Enter new Teacher/Admin PIN (4-8 digits).');
+  if(!cleanFirst)return;
 
-  const second=prompt('Confirm new Teacher/Admin access code.');
-  if(second===null)return;
-  const cleanSecond=second.trim();
+  const cleanSecond=promptAdminPin('Confirm new Teacher/Admin PIN.');
+  if(!cleanSecond)return;
   if(cleanFirst!==cleanSecond){
-    alert('Codes do not match.');
+    alert('PINs do not match.');
     return;
   }
 
   localStorage.setItem(ADMIN_KEY,cleanFirst);
-  alert('Teacher/Admin access code updated.');
+  alert('Teacher/Admin PIN updated.');
 }
 
 function showAL(){
-  if(!ensurePinsSetup()){setPageView('home');return;}
+  if(!ensurePinsSetup())return;
 
+  if(isAdminLoggedIn()){
+    loadAdmin();
+    setPageView('admin');
+    show('s-admin');
+    return;
+  }
+
+  toggleSetupCard(false);
   document.getElementById('pi').value='';
   document.getElementById('pe').style.display='none';
   document.getElementById('admin-login-help').textContent='Enter your Teacher/Admin access code';
@@ -439,8 +514,8 @@ function showAL(){
 document.getElementById('pi').addEventListener('keydown',e=>{if(e.key==='Enter')chkPin();});
 function chkPin(){
   const p=document.getElementById('pi').value.trim(),ee=document.getElementById('pe');
-  const code=localStorage.getItem(ADMIN_KEY)||'';
-  if(p&&p===code){ee.style.display='none';loadAdmin();setPageView('admin');show('s-admin');}
+  const code=getAdminPin();
+  if(p&&p===code){ee.style.display='none';setAdminLoggedIn(true);loadAdmin();setPageView('admin');show('s-admin');}
   else{ee.textContent='Incorrect access code.';ee.style.display='block';document.getElementById('pi').value='';}
 }
 

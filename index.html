@@ -132,6 +132,20 @@
       <p class="err" id="pe" style="display:none;margin-top:5px;"></p>
       <button class="btn btn-g btn-w" style="margin-top:11px;padding:12px;" onclick="chkPin()">🔓 Enter Admin Panel</button>
     </div>
+    <div class="card" id="setup-card" style="display:none;margin-top:12px;text-align:left;">
+      <p style="color:var(--goldL);font-size:.9rem;font-weight:700;margin-bottom:8px;text-align:center;">First-Time Setup</p>
+      <p style="color:var(--goldP);font-size:.8rem;opacity:.8;margin-bottom:10px;text-align:center;">Create both Teacher/Admin PIN and Student PIN below.</p>
+      <label style="color:var(--goldP);font-size:.78rem;">Teacher/Admin PIN</label>
+      <input type="password" id="setup-admin-pin" maxlength="8" placeholder="4-8 digits" style="margin-top:4px;margin-bottom:8px;">
+      <label style="color:var(--goldP);font-size:.78rem;">Confirm Teacher/Admin PIN</label>
+      <input type="password" id="setup-admin-pin-confirm" maxlength="8" placeholder="Repeat Admin PIN" style="margin-top:4px;margin-bottom:8px;">
+      <label style="color:var(--goldP);font-size:.78rem;">Student Session PIN</label>
+      <input type="password" id="setup-student-pin" maxlength="8" placeholder="4-8 digits" style="margin-top:4px;margin-bottom:8px;">
+      <label style="color:var(--goldP);font-size:.78rem;">Confirm Student Session PIN</label>
+      <input type="password" id="setup-student-pin-confirm" maxlength="8" placeholder="Repeat Student PIN" style="margin-top:4px;margin-bottom:8px;">
+      <p class="err" id="setup-err" style="display:none;margin-bottom:8px;"></p>
+      <button class="btn btn-g btn-w" style="padding:10px;" onclick="savePinSetup()">Save Setup</button>
+    </div>
     <button onclick="goHome()" style="background:none;border:none;color:rgba(201,149,58,.38);font-size:.78rem;cursor:pointer;margin-top:13px;font-family:'Cormorant Garamond',serif;">← Back to Home</button>
   </div>
 </div>
@@ -148,7 +162,7 @@
       <button class="btn btn-gh" style="font-size:.76rem;padding:7px 12px;" onclick="changeAdminCode()">🔐 Change Admin Code</button>
       <button class="btn btn-gh" style="font-size:.76rem;padding:7px 12px;" onclick="setStudentPin()">🧑‍🎓 Set Student PIN</button>
       <button class="btn btn-gh" style="font-size:.76rem;padding:7px 12px;" onclick="regenPin()">🔑 New PIN</button>
-      <button class="btn btn-gh" style="font-size:.76rem;padding:7px 12px;" onclick="goHome()">🔒 Logout</button>
+      <button class="btn btn-gh" style="font-size:.76rem;padding:7px 12px;" onclick="adminLogout()">🔒 Logout</button>
     </div>
   </div>
   <!-- Current PIN display in admin -->
