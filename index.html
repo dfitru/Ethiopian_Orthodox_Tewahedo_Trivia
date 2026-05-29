@@ -3,97 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ethiopian Orthodox Tewahedo — End of Year Trivia</title>
+<title>EOTC Youth Trivia Challenge — Official Game</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<style>
-:root{--gold:#C9953A;--goldL:#E8C06A;--goldP:#F5E6C0;--crimson:#8B1A1A;--crimsonD:#5A0E0E;--deep:#1A0A02;--parch:#F9F3E3;--greenL:#2D7A4A;--silver:#C0C0C0;}
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{font-family:'Cormorant Garamond',serif;background:var(--deep);color:var(--parch);
-  background-image:radial-gradient(ellipse at 20% 20%,rgba(201,149,58,.09) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(139,26,26,.11) 0%,transparent 50%);}
-.wrap{max-width:880px;margin:0 auto;padding:16px;}
-.screen{display:none;}.screen.active{display:block;}
-/* ── shared ── */
-.cross{font-size:2rem;color:var(--gold);letter-spacing:16px;display:block;margin-bottom:10px;text-shadow:0 0 20px rgba(201,149,58,.5);}
-.title{font-family:'Cinzel Decorative',serif;font-size:clamp(.95rem,3.2vw,1.65rem);color:var(--goldL);line-height:1.35;}
-.subtitle{color:var(--goldP);font-size:.85rem;font-style:italic;opacity:.8;margin-top:5px;}
-.card{background:rgba(249,243,227,.04);border:1px solid rgba(201,149,58,.22);border-radius:12px;padding:22px 24px;box-shadow:0 6px 24px rgba(0,0,0,.35);}
-.btn{display:inline-block;padding:12px 20px;border-radius:8px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:.93rem;letter-spacing:1px;border:none;transition:all .2s;text-align:center;}
-.btn-p{background:linear-gradient(135deg,var(--crimsonD),var(--crimson));border:1px solid var(--gold);color:var(--goldP);}
-.btn-p:hover{background:linear-gradient(135deg,var(--crimson),#a52020);transform:translateY(-1px);}
-.btn-g{background:linear-gradient(135deg,var(--gold),var(--goldL));color:var(--deep);font-weight:700;}
-.btn-g:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,149,58,.4);}
-.btn-gh{background:rgba(201,149,58,.08);border:1px solid rgba(201,149,58,.3);color:var(--goldP);}
-.btn-dr{background:rgba(139,26,26,.5);border:1px solid var(--crimson);color:#ffaaaa;}
-.btn-w{width:100%;}
-input{width:100%;padding:12px 15px;background:rgba(44,26,8,.85);border:1.5px solid rgba(201,149,58,.4);border-radius:8px;color:var(--parch);font-family:'Cormorant Garamond',serif;font-size:1.05rem;outline:none;box-sizing:border-box;}
-input::placeholder{color:rgba(249,243,227,.3);}
-input[type=password]{letter-spacing:4px;text-align:center;}
-.err{color:#eb8686;font-size:.8rem;margin-top:5px;}
-.tag{background:rgba(139,26,26,.35);border:1px solid rgba(201,149,58,.28);color:var(--goldP);padding:3px 10px;border-radius:20px;font-size:.73rem;display:inline-block;margin:3px;}
-/* ── scoreboard ── */
-.sboard{display:flex;justify-content:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
-.sbox{background:rgba(201,149,58,.1);border:1px solid rgba(201,149,58,.28);border-radius:8px;padding:7px 14px;text-align:center;min-width:82px;}
-.sl{font-family:'Cinzel Decorative',serif;font-size:.58rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase;}
-.sv{font-size:1.65rem;color:var(--goldL);font-weight:600;line-height:1.1;}
-.prog-w{background:rgba(255,255,255,.06);border-radius:4px;height:4px;margin-bottom:16px;overflow:hidden;}
-.prog-f{height:100%;background:linear-gradient(90deg,var(--crimson),var(--gold));border-radius:4px;transition:width .5s;}
-/* ── question ── */
-.qmeta{font-family:'Cinzel Decorative',serif;font-size:.6rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}
-.qlesson{font-size:.6rem;color:rgba(201,149,58,.5);margin-bottom:8px;}
-.qcat{display:inline-block;background:rgba(139,26,26,.4);border:1px solid rgba(201,149,58,.28);color:var(--goldP);font-size:.66rem;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;border-radius:3px;margin-bottom:13px;}
-.qtext{font-size:clamp(.97rem,2.2vw,1.16rem);line-height:1.65;}
-/* ── options ── */
-.ogrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
-@media(max-width:540px){.ogrid{grid-template-columns:1fr;}.wrap{padding:10px;}}
-.obtn{background:rgba(44,26,8,.85);border:1.5px solid rgba(201,149,58,.28);border-radius:8px;padding:11px 12px;cursor:pointer;text-align:left;color:var(--parch);font-family:'Cormorant Garamond',serif;font-size:.91rem;line-height:1.4;transition:all .2s;width:100%;}
-.obtn:hover:not(:disabled){border-color:var(--gold);background:rgba(201,149,58,.1);transform:translateY(-2px);}
-.obtn.correct{background:rgba(27,77,46,.7);border-color:var(--greenL);}
-.obtn.wrong{background:rgba(139,26,26,.7);border-color:var(--crimson);opacity:.75;}
-.obtn:disabled{cursor:default;}
-.oletter{font-family:'Cinzel Decorative',serif;font-size:.64rem;color:var(--gold);margin-right:6px;font-weight:700;}
-/* ── feedback ── */
-.fb{border-radius:8px;padding:12px 15px;margin-bottom:12px;display:none;animation:fadeIn .3s ease;}
-.fb.show{display:block;}
-.fb.ok{background:rgba(27,77,46,.35);border:1px solid var(--greenL);}
-.fb.bad{background:rgba(139,26,26,.3);border:1px solid var(--crimson);}
-.fbt{font-weight:700;margin-bottom:4px;font-size:.86rem;}
-.fb.ok .fbt{color:#6fcf97;}.fb.bad .fbt{color:#eb8686;}
-.fbx{color:var(--goldP);font-size:.88rem;line-height:1.6;font-style:italic;}
-/* ── results ── */
-.final{font-size:3.6rem;color:var(--gold);font-weight:300;line-height:1;margin:13px 0 4px;}
-.rbadge{display:inline-block;padding:7px 22px;border-radius:30px;font-weight:700;margin-bottom:18px;font-size:.86rem;}
-@keyframes glow{0%,100%{text-shadow:0 0 10px rgba(201,149,58,.4);}50%{text-shadow:0 0 28px rgba(201,149,58,.8);}}
-.gcross{font-size:2.2rem;color:var(--gold);animation:glow 2s ease-in-out infinite;display:block;margin-bottom:10px;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
-/* ── leaderboard ── */
-.lbrow{display:flex;align-items:center;gap:11px;border-radius:10px;padding:11px 13px;margin-bottom:7px;border:1px solid rgba(201,149,58,.14);}
-.lbrow.top{background:linear-gradient(135deg,rgba(201,149,58,.18),rgba(201,149,58,.06));border-color:rgba(201,149,58,.44);}
-.lbrow.alt{background:rgba(249,243,227,.025);}
-/* ── admin ── */
-.aheader{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:9px;}
-.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:9px;margin-bottom:20px;}
-.sstat{background:rgba(201,149,58,.08);border:1px solid rgba(201,149,58,.22);border-radius:10px;padding:12px 9px;text-align:center;}
-.ssv{font-size:1.5rem;color:var(--goldL);font-weight:600;}
-.tabs{display:flex;border-bottom:1px solid rgba(201,149,58,.2);margin-bottom:18px;overflow-x:auto;}
-.tbtn{padding:9px 15px;cursor:pointer;border:none;background:transparent;border-bottom:2px solid transparent;color:var(--goldP);font-family:'Cormorant Garamond',serif;font-size:.86rem;letter-spacing:1px;transition:all .2s;white-space:nowrap;}
-.tbtn.active{border-bottom-color:var(--gold);color:var(--goldL);background:rgba(201,149,58,.09);}
-.tpane{display:none;}.tpane.active{display:block;}
-table{width:100%;border-collapse:collapse;font-family:'Cormorant Garamond',serif;}
-th{padding:9px 11px;text-align:left;color:var(--gold);font-size:.66rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;border-bottom:1px solid rgba(201,149,58,.3);}
-td{padding:9px 11px;border-bottom:1px solid rgba(201,149,58,.07);font-size:.9rem;}
-tr:nth-child(even){background:rgba(249,243,227,.015);}
-textarea{width:100%;height:145px;background:rgba(0,0,0,.3);border:1px solid rgba(201,149,58,.2);border-radius:6px;color:var(--goldP);font-family:monospace;font-size:.74rem;padding:9px;resize:none;box-sizing:border-box;}
-.alink{background:none;border:none;color:rgba(201,149,58,.28);font-size:.7rem;cursor:pointer;font-family:'Cormorant Garamond',serif;letter-spacing:1px;}
-/* ── PIN display ── */
-.pin-display{background:linear-gradient(135deg,rgba(201,149,58,.15),rgba(139,26,26,.1));border:2px solid var(--gold);border-radius:12px;padding:18px 24px;text-align:center;margin-bottom:16px;}
-.pin-number{font-family:'Cinzel Decorative',serif;font-size:2.8rem;color:var(--gold);letter-spacing:12px;text-shadow:0 0 20px rgba(201,149,58,.4);}
-.pin-label{font-size:.72rem;color:var(--goldP);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;opacity:.8;}
-/* ── waiting ── */
-.waiting-pulse{animation:pulse 1.5s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-/* ── PIN badge in admin ── */
-.current-pin-badge{background:rgba(201,149,58,.12);border:1px solid rgba(201,149,58,.4);border-radius:8px;padding:8px 16px;display:inline-flex;align-items:center;gap:10px;margin-bottom:16px;}
-</style>
+<link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
 <div class="wrap">
@@ -103,15 +16,23 @@ textarea{width:100%;height:145px;background:rgba(0,0,0,.3);border:1px solid rgba
   <div style="max-width:500px;margin:0 auto;padding-top:26px;">
     <div style="text-align:center;margin-bottom:22px;">
       <span class="cross">✞ ✞ ✞</span>
-      <h1 class="title">Ethiopian Orthodox Tewahedo<br>End of Year Trivia</h1>
-      <p class="subtitle">Dallas AGA — Children of Light Curriculum</p>
+      <h1 class="title">EOTC Youth Trivia Challenge<br>Official Game Edition</h1>
+      <p class="subtitle">Play with friends, siblings, and family in joyful faith learning</p>
     </div>
     <div class="card" style="margin-bottom:13px;">
       <p style="color:var(--goldP);font-size:.98rem;margin-bottom:16px;line-height:1.6;text-align:center;">
-        Enter your name to join the trivia.<br>
-        <strong style="color:var(--gold);">Your score appears on the class leaderboard!</strong>
+        Enter your name and choose your game mode.<br>
+        <strong style="color:var(--gold);">Your score appears on the official leaderboard.</strong>
       </p>
       <input type="text" id="ni" placeholder="Your name..." maxlength="30">
+      <div style="margin-top:10px;">
+        <label for="gm" style="color:var(--goldP);font-size:.82rem;display:block;margin-bottom:4px;">Game Mode</label>
+        <select id="gm" style="width:100%;padding:11px 12px;background:rgba(44,26,8,.85);border:1.5px solid rgba(201,149,58,.4);border-radius:8px;color:var(--parch);font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;">
+          <option value="Friends Match">Friends Match</option>
+          <option value="Family Night">Family Night</option>
+          <option value="Youth Group Arena">Youth Group Arena</option>
+        </select>
+      </div>
       <p class="err" id="ne" style="display:none;"></p>
       <button class="btn btn-p btn-w" style="margin-top:11px;padding:13px;font-size:1rem;" onclick="startQ()">✞ Begin the Trivia ✞</button>
     </div>
@@ -127,8 +48,16 @@ textarea{width:100%;height:145px;background:rgba(0,0,0,.3);border:1px solid rgba
       <span class="tag">✝ Faith</span><span class="tag">👤 Identity</span><span class="tag">🛡 Armor</span>
       <span class="tag">📜 The Creed</span><span class="tag">🙏 Serving</span><span class="tag">⛪ Church</span><span class="tag">☩ Holiness</span>
     </div>
+    <div class="card" style="margin-bottom:13px;padding:14px 16px;">
+      <div style="color:var(--gold);font-size:.75rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Official Game Rules</div>
+      <p style="color:var(--goldP);font-size:.86rem;line-height:1.55;opacity:.9;">1) One player, one device. 2) No answer hints while playing. 3) Celebrate everyone after each round. 4) Top score per player stays on the leaderboard.</p>
+    </div>
     <p style="text-align:center;color:var(--goldP);opacity:.45;font-size:.76rem;margin-bottom:10px;" id="q-count-info">Questions adapt to class size • Scores saved to class leaderboard</p>
-    <div style="text-align:center;"><button class="alink" onclick="showAL()">🔒 Teacher / Admin</button></div>
+    <div style="text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a class="alink" href="home.html">🏠 Home Page</a>
+      <a class="alink" href="leaderboard.html">🏆 Leaderboard Page</a>
+      <a class="alink" href="admin.html">🔒 Teacher / Admin Page</a>
+    </div>
   </div>
 </div>
 
@@ -136,7 +65,7 @@ textarea{width:100%;height:145px;background:rgba(0,0,0,.3);border:1px solid rgba
 <div id="s-quiz" class="screen">
   <div style="text-align:center;padding:16px 0 12px;">
     <span style="font-size:1.5rem;color:var(--gold);letter-spacing:10px;">✞ ✞ ✞</span>
-    <h2 style="font-family:'Cinzel Decorative',serif;font-size:clamp(.82rem,2.2vw,1.15rem);color:var(--goldL);margin-top:3px;">Ethiopian Orthodox End of Year Trivia</h2>
+    <h2 style="font-family:'Cinzel Decorative',serif;font-size:clamp(.82rem,2.2vw,1.15rem);color:var(--goldL);margin-top:3px;">EOTC Youth Trivia Challenge</h2>
     <p id="pa" style="color:var(--gold);font-size:.8rem;font-style:italic;margin-top:2px;"></p>
   </div>
   <div class="sboard">
@@ -152,6 +81,7 @@ textarea{width:100%;height:145px;background:rgba(0,0,0,.3);border:1px solid rgba
     <div class="qtext" id="qt"></div>
   </div>
   <div class="ogrid" id="og"></div>
+  <button class="btn btn-gh btn-w" id="hb" onclick="useHint()" style="padding:10px;font-size:.85rem;letter-spacing:1px;display:none;margin-bottom:10px;">Hint (-0.5 point, removes one wrong choice)</button>
   <div class="fb" id="fb"><div class="fbt" id="fbt"></div><div class="fbx" id="fbx"></div></div>
   <button class="btn btn-p btn-w" id="nb" onclick="nextQ()" disabled style="padding:12px;font-size:.9rem;letter-spacing:2px;display:none;">Next Question →</button>
 </div>
@@ -173,6 +103,7 @@ textarea{width:100%;height:145px;background:rgba(0,0,0,.3);border:1px solid rgba
       <button class="btn btn-gh" onclick="goHome()">✝ Play Again</button>
       <button class="btn btn-g" onclick="showLB()">⚜ Full Leaderboard</button>
     </div>
+    <p style="margin-top:12px;color:var(--goldP);opacity:.6;font-size:.78rem;">Official EOTC Youth Trivia Game • Friendly play for children, youth, and families</p>
   </div>
 </div>
 
@@ -194,16 +125,10 @@ textarea{width:100%;height:145px;background:rgba(0,0,0,.3);border:1px solid rgba
   <div style="max-width:400px;margin:0 auto;padding:50px 18px;text-align:center;">
     <div style="font-size:1.9rem;color:var(--gold);margin-bottom:12px;">🔒</div>
     <h2 style="font-family:'Cinzel Decorative',serif;color:var(--goldL);font-size:1.3rem;margin-bottom:5px;">Teacher / Admin Access</h2>
-    <p style="color:var(--goldP);opacity:.68;font-size:.86rem;margin-bottom:20px;font-style:italic;">Your unique PIN is shown below</p>
-    <!-- Show admin PIN to teacher -->
-    <div class="pin-display" style="margin-bottom:20px;">
-      <div class="pin-label">Your Admin PIN</div>
-      <div class="pin-number" id="admin-pin-display">----</div>
-      <div style="font-size:.75rem;color:var(--goldP);opacity:.65;margin-top:6px;">Share this with students to unlock the quiz</div>
-    </div>
+    <p style="color:var(--goldP);opacity:.68;font-size:.86rem;margin-bottom:20px;font-style:italic;" id="admin-login-help">Enter your Teacher/Admin access code</p>
     <div class="card">
-      <p style="color:var(--goldP);font-size:.88rem;margin-bottom:12px;">Enter your PIN to access the Admin Panel:</p>
-      <input type="password" id="pi" placeholder="PIN" maxlength="10" onkeydown="if(event.key==='Enter')chkPin()">
+      <p style="color:var(--goldP);font-size:.88rem;margin-bottom:12px;">Enter your access code to open the Admin Panel:</p>
+      <input type="password" id="pi" placeholder="Access code" maxlength="20" onkeydown="if(event.key==='Enter')chkPin()">
       <p class="err" id="pe" style="display:none;margin-top:5px;"></p>
       <button class="btn btn-g btn-w" style="margin-top:11px;padding:12px;" onclick="chkPin()">🔓 Enter Admin Panel</button>
     </div>
@@ -216,10 +141,12 @@ textarea{width:100%;height:145px;background:rgba(0,0,0,.3);border:1px solid rgba
   <div class="aheader">
     <div>
       <div style="font-size:1.3rem;color:var(--gold);margin-bottom:1px;">🔒 Admin Panel</div>
-      <div style="color:var(--goldP);font-size:.78rem;opacity:.62;">Ethiopian Orthodox End of Year Trivia — Dallas AGA</div>
+      <div style="color:var(--goldP);font-size:.78rem;opacity:.62;">Official Game Control Center — EOTC Youth Trivia Challenge</div>
     </div>
     <div style="display:flex;gap:7px;flex-wrap:wrap;">
       <button class="btn btn-gh" style="font-size:.76rem;padding:7px 12px;" onclick="loadAdmin()">🔄 Refresh</button>
+      <button class="btn btn-gh" style="font-size:.76rem;padding:7px 12px;" onclick="changeAdminCode()">🔐 Change Admin Code</button>
+      <button class="btn btn-gh" style="font-size:.76rem;padding:7px 12px;" onclick="setStudentPin()">🧑‍🎓 Set Student PIN</button>
       <button class="btn btn-gh" style="font-size:.76rem;padding:7px 12px;" onclick="regenPin()">🔑 New PIN</button>
       <button class="btn btn-gh" style="font-size:.76rem;padding:7px 12px;" onclick="goHome()">🔒 Logout</button>
     </div>
@@ -290,351 +217,6 @@ textarea{width:100%;height:145px;background:rgba(0,0,0,.3);border:1px solid rgba
 </div>
 
 </div><!-- /wrap -->
-<script>
-// ══════════════════════════════════════════════
-// ALL 28 QUESTIONS
-// ══════════════════════════════════════════════
-const ALL_QS=[
- {l:"Believing Without Seeing",c:"✝ Faith & Believing",q:"According to Hebrews 11:1, faith is the ___ of things hoped for and the ___ of things not seen.",o:["Dream / imagination","Substance / evidence","Promise / memory","Feeling / emotion"],a:1,e:"Hebrews 11:1: faith is the 'substance of things hoped for, the evidence of things not seen.' Like gravity — we cannot see it, but we see its effects everywhere."},
- {l:"Believing Without Seeing",c:"✝ Faith & Believing",q:"St. John Chrysostom teaches that the power of faith is that we ___ even when we cannot see the end result.",o:["Pray harder","Obey","Wait patiently","Stop worrying"],a:1,e:"St. Chrysostom: 'The power of faith is that we obey even when we cannot see the end result.' In the EOTC, faith is living trust shown through obedience and action."},
- {l:"How Great Is Faith",c:"✝ Faith & Believing",q:"Which Scripture says 'Without faith it is impossible to please the Lord'?",o:["John 3:16","Hebrews 11:6","Romans 8:15","Philippians 4:13"],a:1,e:"Hebrews 11:6: 'Without faith it is impossible to please the Lord.' Faith is the foundation of salvation."},
- {l:"Believing Without Seeing",c:"✝ Faith & Believing",q:"Which Old Testament hero of faith built an ark BEFORE seeing any rain, trusting God completely?",o:["Abraham","Moses","Noah","Elijah"],a:2,e:"Noah (Hebrews 11:7) built the ark before seeing any flood — a perfect example of active faith. His obedience showed he trusted God's promise without visible proof."},
- {l:"Power of Faith — Matthew 14",c:"✝ Faith & Believing",q:"When Peter walked on water toward Jesus, what caused him to begin sinking?",o:["He did not pray first","He became afraid and began to doubt","Jesus moved away","He was not baptized yet"],a:1,e:"Peter's faith faltered when he saw the wind and waves. Even so, Jesus lovingly saved him — when faith stumbles, we can cry out to Christ and He will help us."},
- {l:"How Great Is Faith",c:"✝ Faith & Believing",q:"The three great virtues in 1 Corinthians 13:13 are:",o:["Prayer, fasting, and almsgiving","Faith, hope, and love","Obedience, humility, and purity","Knowledge, wisdom, and courage"],a:1,e:"1 Corinthians 13:13 names faith, hope, and love — with love being the greatest. Faith is the beginning of the road that leads to God."},
- {l:"BB4 Lesson 4.1 — Defining Oneself",c:"👤 Identity in God",q:"Romans 8:15 tells us we received the Spirit of ___, by which we cry 'Abba, Father.'",o:["Obedience","Power","Adoption","Wisdom"],a:2,e:"Romans 8:15 — we received the Spirit of adoption. Our true identity is being children of God — a gift given by God, not earned or lost based on success or failure."},
- {l:"BB4 Lesson 4.1 — Defining Oneself",c:"👤 Identity in God",q:"Defining yourself by failures leads to ___, while defining yourself by successes leads to ___.",o:["Humility / gratitude","Despair / pride","Repentance / holiness","Peace / joy"],a:1,e:"Both are false identities from the devil. Failures → despair. Successes → pride. Our true God-given identity is stable and unchanging — we are His children."},
- {l:"BB4 Lesson 4.2 — Knowledge of God",c:"👤 Identity in God",q:"John 17:3 says: 'This is eternal life, that they may ___ You, the only true God.'",o:["Love","Fear","Know","Worship"],a:2,e:"Jesus says eternal life is to KNOW God — and this begins NOW, not only in heaven. Knowing God shapes our identity."},
- {l:"BB4 Lesson 4.3 — Joy & Contentment",c:"🌿 Joy, Sin & Boundaries",q:"Paul wrote Philippians — the 'Book of Joy' — from where?",o:["A palace","The Temple in Jerusalem","Prison chains","A mountain retreat"],a:2,e:"Paul wrote Philippians filled with joy from prison. True joy flows from real relationship with Christ, not from circumstances."},
- {l:"BB4 Lesson 4.4 — What Is Sin?",c:"🌿 Joy, Sin & Boundaries",q:"According to James 1:14–15, Sin = Desire + ___ + Action.",o:["Temptation","Opportunity","Weakness","Disobedience"],a:1,e:"James 1:14–15: Sin = Desire + Opportunity + Action. Remove any one and you break the cycle. Temptation itself is not sin — it becomes sin when we choose to act."},
- {l:"BB4 Lesson 4.4 — What Is Sin?",c:"🌿 Joy, Sin & Boundaries",q:"St. John Chrysostom warns Satan 'gives the ___ to sin and the ___ to repentance.'",o:["Permission / courage","Courage / shame","Pleasure / pain","Opportunity / regret"],a:1,e:"Satan gives courage to sin but shame to repentance. God works the opposite way. It is NEVER too late — even St. Peter denied Christ three times yet became a great champion of the Gospel."},
- {l:"BB4 Lesson 4.5 — Boundaries",c:"🌿 Joy, Sin & Boundaries",q:"Matthew 5:37: 'Let your ___ be ___ and your ___ be ___.' Jesus calls this a protective weapon.",o:["Heart / open / mind / clear","'Yes'/'Yes' and 'No'/'No'","Faith / strong / doubt / gone","Love / love and hate / hate"],a:1,e:"Matthew 5:37 — our words should be trustworthy. Saying no to compromise is wisdom. Healthy boundaries protect prayer, purity, charity, and time."},
- {l:"We Are Called to Be Champions — Eph. 6",c:"🛡 Armor of God",q:"The only OFFENSIVE weapon in the whole Armor of God is:",o:["The Shield of Faith","The Helmet of Salvation","The Sword of the Spirit — the Word of God","The Breastplate of Righteousness"],a:2,e:"Ephesians 6:17 — the Sword of the Spirit (the Word of God) is the only offensive weapon. All others are defensive. We use Scripture to fight lies and defend our faith."},
- {l:"We Are Called to Be Champions — Eph. 6",c:"🛡 Armor of God",q:"The Shield of Faith 'quenches all the fiery darts of the wicked one.' What does this represent?",o:["Attending church every Sunday","Trusting God even when life is hard or confusing","Memorizing every Bible verse","Never having any doubts"],a:1,e:"The Shield of Faith is trusting God even when life is confusing. When doubts, fears, or temptations come, our faith in Christ protects us."},
- {l:"We Are Called to Be Champions — 1 Cor. 9",c:"🛡 Armor of God",q:"St. Paul says athletes strive for a perishable crown, but we strive for a/an ___ crown.",o:["Golden","Heavenly","Imperishable","Eternal olive"],a:2,e:"St. Paul compares worldly rewards (a wreath that wilts) to the imperishable crown from God. We defend our faith for an eternal reward that never fades."},
- {l:"The Creed — Council of Nicaea 325 AD",c:"📜 The Creed",q:"At the Council of Nicaea (325 AD), how many bishops gathered to defend the faith against Arius?",o:["72","150","200","318"],a:3,e:"318 bishops gathered at Nicaea. They declared Jesus is 'true God of true God, begotten not made, of one essence (homoousios) with the Father,' refuting Arius."},
- {l:"The Creed — Council of Constantinople 381 AD",c:"📜 The Creed",q:"The Second Council (Constantinople, 381 AD) defended the divinity of the ___ against Macedonius.",o:["Virgin Mary","Apostles","Holy Spirit","Old Testament prophets"],a:2,e:"Macedonius denied the Holy Spirit is God. The Council declared the Holy Spirit is equal to Father and Son — one essence, one God."},
- {l:"The Creed — Council of Ephesus 431 AD",c:"📜 The Creed",q:"The Council of Ephesus (431 AD) affirmed the Virgin Mary should be called 'Theotokos,' which means:",o:["Mother of the Church","Queen of Heaven","God-Bearer (Mother of God)","Blessed Virgin"],a:2,e:"Theotokos means 'God-Bearer.' The Council declared Christ's divinity and humanity were never separated — 'not for a single moment, nor twinkling of an eye.'"},
- {l:"The Creed — Introduction",c:"📜 The Creed",q:"The Creed is prayed ___ in the Hours Prayers, reminding us that faith is life, not just belief.",o:["Once a week","Only on Sundays","Every day and night","Once a month"],a:2,e:"The Creed is prayed every day and night in the Hours Prayers of the EOTC. It is the foundation of our faith about God, Jesus Christ, and the Holy Spirit."},
- {l:"Ways to Serve God Daily — Psalm 100:2",c:"🙏 Serving God",q:"Psalm 100:2: 'Serve the Lord with ___; come before Him with joyful singing.'",o:["Reverence","Gladness","Obedience","Fasting"],a:1,e:"Psalm 100:2: 'Serve the Lord with gladness.' Serving God is not a burden — it is a joy. When we serve others, we serve God Himself."},
- {l:"Ways to Serve God Daily — L-C-C-B-T",c:"🙏 Serving God",q:"The acronym L-C-C-B-T = five ways to serve. What does 'B' stand for?",o:["Be baptized","Bear others' burdens","Bring tithes","Build the church"],a:1,e:"L-C-C-B-T = Love neighbors, Care for strangers, Copy Christ, Bear others' burdens, Talents for God. Bearing burdens means empathizing with those who struggle."},
- {l:"The Loving Motherhood of the Church",c:"⛪ The Church",q:"Christianity was first introduced to Ethiopia through Queen Candace's treasurer, baptized by Philip in ___ AD.",o:["34 AD","100 AD","251 AD","350 AD"],a:0,e:"Acts 8 — the Ethiopian treasurer was baptized by Philip in 34 AD, just one year after the Resurrection. Ethiopians were also among the 3,000 baptized on Pentecost (Acts 2:41)."},
- {l:"The Loving Motherhood of the Church",c:"⛪ The Church",q:"The Church is Apostolic because it is founded on the teachings of the Apostles. Which Scripture describes this?",o:["John 3:16","Matthew 16:18–19","Ephesians 4:4–6","Acts 2:41"],a:1,e:"Matthew 16:18–19 — 'Upon this rock I will build my church.' The Church is Apostolic because it rests on the Apostles, who received their authority from Christ Himself."},
- {l:"Holiness — Purity through Confession",c:"☩ Holiness & Confession",q:"In Genesis 1:26, 'Image' means we represent God. 'Likeness' points to our ___ into holiness over time.",o:["Immediate perfection","Growth","Transformation at baptism","Ordination"],a:1,e:"'Image' = made to represent God. 'Likeness' = growth into holiness through grace and obedience. Matthew 5:48: 'Be perfect as your Father is perfect' — a call to keep growing."},
- {l:"Holiness — Saint Moses the Strong",c:"☩ Holiness & Confession",q:"Why did we study Saint Moses the Strong in connection with repentance and confession?",o:["He wrote the Book of Psalms","He began in sin but was powerfully transformed through repentance — a model of holiness","He fasted 40 days in the desert","He defended faith before the Emperor"],a:1,e:"Saint Moses the Strong began his life making many wrong choices. Through repentance and confession, he was completely transformed — proving no one is beyond God's mercy."},
- {l:"Defending Our Faith and Morals",c:"🛡 Armor of God",q:"According to 1 Peter 3:15, before we can defend Christ, we must first do what in our hearts?",o:["Memorize every Scripture","Revere (honor) Christ as Lord","Attend every church service","Tell everyone our faith"],a:1,e:"St. Peter: we must revere Christ as Lord in our hearts before defending Him. Defending faith begins with loving God. Once we truly love and know Him, we naturally stand up for our faith."},
- {l:"Defending Our Faith and Morals",c:"🛡 Armor of God",q:"Matthew 5:14–16 — Jesus calls us 'the light of the world.' What does hiding our faith look like?",o:["Running away from trouble","Putting a lamp under a basket","Covering our eyes","Building a wall"],a:1,e:"Jesus says hiding our faith is like putting a lamp under a basket. When we openly live and defend our faith with love, people notice — and God is glorified by our witness."},
- {l:"BB4 Lesson 4.2 — Knowledge of God",c:"👤 Identity in God",q:"Which Scripture says: 'I can do all things through Christ who strengthens me'?",o:["Romans 8:28","Philippians 4:13","Isaiah 40:31","Hebrews 12:1"],a:1,e:"Philippians 4:13 — This verse reminds us that our strength comes not from ourselves but from our union with Christ. It connects directly to our identity as children of God who can face any challenge."},
-];
-
-// ══════════════════════════════════════════════
-// STORAGE & CONFIG
-// ══════════════════════════════════════════════
-const SK="eotc_v6";
-const PIN_KEY="eotc_pin_v6";
-const CFG_KEY="eotc_cfg_v6";
-
-const ld=()=>{try{const d=localStorage.getItem(SK);return d?JSON.parse(d):[]}catch{return[]}};
-const sv=(a)=>{try{localStorage.setItem(SK,JSON.stringify(a))}catch{}};
-
-// Generate or load PIN
-function getPin(){
-  let p=localStorage.getItem(PIN_KEY);
-  if(!p){p=Math.floor(1000+Math.random()*9000).toString();localStorage.setItem(PIN_KEY,p);}
-  return p;
-}
-function regenPin(){
-  if(!confirm('Generate a new PIN? The old PIN will no longer work.'))return;
-  const p=Math.floor(1000+Math.random()*9000).toString();
-  localStorage.setItem(PIN_KEY,p);
-  document.getElementById('admin-pin-display').textContent=p;
-  document.getElementById('admin-current-pin').textContent=p;
-  alert('New PIN: '+p+'\nShare this with your students.');
-}
-function copyPin(){
-  const p=localStorage.getItem(PIN_KEY)||'';
-  navigator.clipboard.writeText(p).then(()=>alert('PIN copied: '+p)).catch(()=>alert('PIN: '+p));
-}
-
-// Q count config
-function getQCount(){
-  const cfg=JSON.parse(localStorage.getItem(CFG_KEY)||'{"auto":true,"manual":5}');
-  if(cfg.auto){
-    const n=ld().length;
-    if(n<=5)return 5;
-    if(n<=10)return 7;
-    if(n<=15)return 10;
-    if(n<=20)return 12;
-    return 15;
-  }
-  return Math.min(Math.max(parseInt(cfg.manual)||5,3),ALL_QS.length);
-}
-function toggleAutoQ(){
-  const auto=document.getElementById('auto-q').checked;
-  document.getElementById('manual-q').disabled=auto;
-}
-function saveQCount(){
-  const auto=document.getElementById('auto-q').checked;
-  const manual=parseInt(document.getElementById('manual-q').value)||5;
-  localStorage.setItem(CFG_KEY,JSON.stringify({auto,manual}));
-  updateQDisplay();
-  alert('Saved! Students will now get '+getQCount()+' questions each.');
-}
-function updateQDisplay(){
-  const q=getQCount();
-  const auto=(JSON.parse(localStorage.getItem(CFG_KEY)||'{"auto":true}').auto);
-  document.getElementById('current-q-display').textContent='Current: '+q+' Q'+(auto?' (auto)':' (manual)');
-}
-
-// Scores
-function addSc(name,score,total){
-  const a=ld(),idx=a.findIndex(s=>s.name.toLowerCase()===name.toLowerCase()),e={name,score,total,pct:Math.round(score/total*100),date:new Date().toLocaleDateString()};
-  if(idx>=0){if(score/total>a[idx].score/a[idx].total)a[idx]=e;}else a.push(e);
-  a.sort((x,y)=>(y.score/y.total)-(x.score/x.total)||x.name.localeCompare(y.name));sv(a);
-}
-const delSc=(i)=>{const a=ld();a.splice(i,1);sv(a);};
-const rstSc=()=>sv([]);
-
-function getRank(p){
-  if(p>=.9)return{label:"✞ Pillar of the Faith",color:"#C9953A",short:"Pillar"};
-  if(p>=.75)return{label:"☩ Faithful Scholar",color:"#C0C0C0",short:"Scholar"};
-  if(p>=.55)return{label:"✝ Growing in Faith",color:"#CD7F32",short:"Growing"};
-  return{label:"📖 Keep Studying",color:"#EB8686",short:"Needs Review"};
-}
-const esc=(s)=>{const d=document.createElement('div');d.textContent=s;return d.innerHTML;};
-
-// ══════════════════════════════════════════════
-// SCREENS
-// ══════════════════════════════════════════════
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
-function goHome(){
-  show('s-name');
-  document.getElementById('ni').value='';
-  document.getElementById('student-pin').value='';
-  // Show/hide PIN entry based on whether PIN is required
-  updateHomePinVisibility();
-}
-
-function updateHomePinVisibility(){
-  const pin=localStorage.getItem(PIN_KEY);
-  const hasPin=pin&&pin.length>0;
-  document.getElementById('pin-entry-card').style.display=hasPin?'block':'none';
-}
-
-// ══════════════════════════════════════════════
-// QUIZ STATE
-// ══════════════════════════════════════════════
-let pName='',pScore=0,shuf=[],ci=0,cs=0,cst=0,answered=false,myTotal=0;
-
-document.getElementById('ni').addEventListener('keydown',e=>{if(e.key==='Enter')startQ();});
-document.getElementById('student-pin').addEventListener('keydown',e=>{if(e.key==='Enter')startQ();});
-
-function startQ(){
-  const n=document.getElementById('ni').value.trim(),ee=document.getElementById('ne');
-  const spe=document.getElementById('spe');
-  if(!n){ee.textContent='Please enter your name.';ee.style.display='block';return;}
-  if(n.length>30){ee.textContent='Max 30 characters.';ee.style.display='block';return;}
-  ee.style.display='none';
-
-  // Check student PIN
-  const adminPin=localStorage.getItem(PIN_KEY);
-  if(adminPin){
-    const enteredPin=document.getElementById('student-pin').value.trim();
-    if(!enteredPin){spe.textContent='Please enter the session PIN from your teacher.';spe.style.display='block';return;}
-    if(enteredPin!==adminPin){spe.textContent='Incorrect PIN. Ask your teacher for the correct PIN.';spe.style.display='block';return;}
-    spe.style.display='none';
-  }
-
-  pName=n;cs=0;cst=0;ci=0;
-  myTotal=getQCount();
-  // Shuffle all questions and take myTotal
-  const pool=[...ALL_QS];
-  for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
-  shuf=pool.slice(0,myTotal);
-  document.getElementById('pa').textContent='Playing as: '+pName+' | '+myTotal+' questions';
-  loadQ();show('s-quiz');
-}
-
-function loadQ(){
-  answered=false;const q=shuf[ci],tot=shuf.length;
-  document.getElementById('qn').textContent='Question '+(ci+1);
-  document.getElementById('qc').textContent=(ci+1)+'/'+tot;
-  document.getElementById('ql').textContent=q.l;
-  document.getElementById('qcat').textContent=q.c;
-  document.getElementById('qt').textContent=q.q;
-  document.getElementById('sv').textContent=cs;
-  document.getElementById('stk').textContent=cst;
-  document.getElementById('pf').style.width=((ci/tot)*100)+'%';
-  document.getElementById('fb').className='fb';
-  const nb=document.getElementById('nb');nb.style.display='none';nb.disabled=true;
-  nb.textContent=(ci+1>=tot)?'See Results & Leaderboard ✞':'Next Question →';
-  const og=document.getElementById('og');og.innerHTML='';
-  const lt=['A','B','C','D'];
-  q.o.forEach((opt,i)=>{
-    const b=document.createElement('button');b.className='obtn';
-    b.innerHTML='<span class="oletter">'+lt[i]+'.</span>'+opt;
-    b.onclick=()=>pickA(i);og.appendChild(b);
-  });
-}
-
-function pickA(sel){
-  if(answered)return;answered=true;
-  const q=shuf[ci],cor=q.a;
-  document.querySelectorAll('.obtn').forEach((b,i)=>{b.disabled=true;if(i===cor)b.classList.add('correct');else if(i===sel)b.classList.add('wrong');});
-  const ok=(sel===cor);
-  if(ok){cs++;cst++;}else cst=0;
-  document.getElementById('sv').textContent=cs;
-  document.getElementById('stk').textContent=cst;
-  const fb=document.getElementById('fb');
-  fb.className='fb show '+(ok?'ok':'bad');
-  document.getElementById('fbt').textContent=ok?(cst>=3?'✓ Correct! 🔥 '+cst+' in a row!':'✓ Correct!'):'✗ Not quite:';
-  document.getElementById('fbx').textContent=q.e;
-  const nb=document.getElementById('nb');nb.style.display='block';nb.disabled=false;
-}
-
-function nextQ(){ci++;if(ci>=shuf.length)finishQ();else loadQ();}
-
-function finishQ(){
-  pScore=cs;addSc(pName,pScore,myTotal);
-  const scores=ld(),p=pScore/myTotal,rank=getRank(p);
-  document.getElementById('rn').textContent=pName;
-  document.getElementById('fs').textContent=pScore;
-  document.getElementById('tot-q').textContent=myTotal;
-  document.getElementById('fp').textContent=Math.round(p*100);
-  const rb=document.getElementById('rb');
-  rb.textContent=rank.label;rb.style.color=rank.color;rb.style.border='1px solid '+rank.color;rb.style.background=rank.color+'22';
-  const msgs={.9:"'Well done, good and faithful servant.' Excellent mastery of this year's lessons.",.75:"Strong work! You have a solid foundation. Keep growing through prayer and Scripture.",.55:"Good effort! Review the topics where you struggled — every step is progress.",0:"'Seek and you shall find.' Review your lesson notes and try again — God rewards those who persevere."};
-  document.getElementById('rm').textContent=p>=.9?msgs[.9]:p>=.75?msgs[.75]:p>=.55?msgs[.55]:msgs[0];
-  const ml=document.getElementById('ml');ml.innerHTML='';
-  scores.slice(0,5).forEach((s,i)=>{
-    const r=getRank(s.score/s.total),row=document.createElement('div');
-    row.style.cssText='display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:4px 7px;border-radius:5px;background:'+(s.name===pName?'rgba(201,149,58,.1)':'transparent');
-    row.innerHTML='<span style="font-size:1rem;min-width:22px;text-align:center">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)+'.')+'</span><span style="flex:1;color:'+(s.name===pName?'#E8C06A':'#F9F3E3')+';font-weight:'+(s.name===pName?'bold':'normal')+';font-size:.9rem">'+esc(s.name)+'</span><span style="color:#C9953A;font-weight:bold;font-size:.95rem">'+s.score+'/'+s.total+'</span><span style="color:'+r.color+';font-size:.7rem;min-width:40px;text-align:right">'+s.pct+'%</span>';
-    ml.appendChild(row);
-  });
-  show('s-results');
-}
-
-// ══════════════════════════════════════════════
-// LEADERBOARD
-// ══════════════════════════════════════════════
-function showLB(){
-  const scores=ld();
-  document.getElementById('lbc').textContent=scores.length+' student'+(scores.length!==1?'s':'')+' have completed the trivia';
-  const ll=document.getElementById('lbl');ll.innerHTML='';
-  if(!scores.length){ll.innerHTML='<div style="text-align:center;color:var(--goldP);opacity:.5;padding:38px;font-style:italic;">No scores yet. Be the first!</div>';}
-  else scores.forEach((s,i)=>{
-    const r=getRank(s.score/s.total),medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':'',row=document.createElement('div');
-    row.className='lbrow'+(i===0?' top':i%2===0?' alt':'');
-    row.innerHTML='<div style="font-size:'+(i<3?'1.4rem':'.88rem')+';min-width:28px;text-align:center;color:'+(i>=3?'rgba(201,149,58,.4)':'inherit')+';font-weight:'+(i>=3?'bold':'inherit')+'">'+(medal||i+1)+'</div><div style="flex:1"><div style="color:'+(i===0?'#E8C06A':'#F9F3E3')+';font-weight:'+(i<3?'bold':'normal')+';font-size:.95rem;margin-bottom:1px">'+esc(s.name)+'</div><div style="color:'+r.color+';font-size:.68rem">'+r.label+'</div></div><div style="text-align:right"><div style="color:#C9953A;font-weight:bold;font-size:1.18rem">'+s.score+'/'+s.total+'</div><div style="color:var(--goldP);font-size:.7rem;opacity:.63">('+s.pct+'%)</div></div><div style="width:4px;height:34px;border-radius:3px;background:linear-gradient(180deg,'+r.color+',transparent)"></div>';
-    ll.appendChild(row);
-  });
-  show('s-lb');
-}
-
-// ══════════════════════════════════════════════
-// ADMIN
-// ══════════════════════════════════════════════
-function showAL(){
-  const pin=getPin();
-  document.getElementById('admin-pin-display').textContent=pin;
-  document.getElementById('pi').value='';
-  document.getElementById('pe').style.display='none';
-  show('s-al');
-}
-
-document.getElementById('pi').addEventListener('keydown',e=>{if(e.key==='Enter')chkPin();});
-function chkPin(){
-  const p=document.getElementById('pi').value,ee=document.getElementById('pe'),pin=getPin();
-  if(p===pin){ee.style.display='none';loadAdmin();show('s-admin');}
-  else{ee.textContent='Incorrect PIN. Check the PIN displayed above.';ee.style.display='block';document.getElementById('pi').value='';}
-}
-
-function loadAdmin(){
-  const pin=getPin();
-  document.getElementById('admin-current-pin').textContent=pin;
-  updateQDisplay();
-
-  // Load cfg into UI
-  const cfg=JSON.parse(localStorage.getItem(CFG_KEY)||'{"auto":true,"manual":5}');
-  document.getElementById('auto-q').checked=cfg.auto;
-  document.getElementById('manual-q').value=cfg.manual;
-  document.getElementById('manual-q').disabled=cfg.auto;
-
-  const scores=ld();
-  const avg=scores.length?(scores.reduce((a,s)=>a+(s.score/s.total*100),0)/scores.length).toFixed(1)+'%':'—';
-  const topS=scores.length?scores[0]:'';
-  const pass=scores.filter(s=>s.score/s.total>=.55).length;
-  document.getElementById('astats').innerHTML=[
-    ['👥 Students',scores.length],
-    ['📊 Avg %',avg],
-    ['🏆 Top Score',topS?(topS.score+'/'+topS.total):'—'],
-    ['✅ Passing',pass],
-    ['❌ Review',scores.length-pass],
-    ['❓ Q per Student',getQCount()]
-  ].map(([l,v])=>'<div class="sstat"><div style="font-size:.6rem;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">'+l+'</div><div class="ssv">'+v+'</div></div>').join('');
-
-  // Scores table
-  const tb=document.getElementById('stbody');tb.innerHTML='';
-  document.getElementById('noscore').style.display=scores.length?'none':'block';
-  scores.forEach((s,i)=>{
-    const r=getRank(s.score/s.total),tr=document.createElement('tr');
-    tr.innerHTML='<td style="color:var(--goldP)">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1)+'</td>'
-      +'<td style="color:var(--parch);font-weight:'+(i<3?'bold':'normal')+'">'+esc(s.name)+'</td>'
-      +'<td style="color:#C9953A;font-weight:bold">'+s.score+'</td>'
-      +'<td style="color:var(--goldP);opacity:.7">'+s.total+'</td>'
-      +'<td style="color:'+r.color+'">'+s.pct+'%</td>'
-      +'<td style="color:'+r.color+';font-size:.73rem">'+r.short+'</td>'
-      +'<td style="color:var(--goldP);font-size:.76rem;opacity:.58">'+(s.date||'—')+'</td>'
-      +'<td><button onclick="remSt('+i+')" style="background:none;border:1px solid rgba(139,26,26,.5);color:rgba(235,134,134,.72);border-radius:5px;padding:3px 8px;cursor:pointer;font-size:.7rem;font-family:\'Cormorant Garamond\',serif;">Remove</button></td>';
-    tb.appendChild(tr);
-  });
-
-  // Breakdown
-  const tiers=[{label:"✞ Pillar of the Faith",min:.9,max:1.1,c:"#C9953A"},{label:"☩ Faithful Scholar",min:.75,max:.9,c:"#C0C0C0"},{label:"✝ Growing in Faith",min:.55,max:.75,c:"#CD7F32"},{label:"📖 Keep Studying",min:0,max:.55,c:"#EB8686"}];
-  let bh='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px;margin-bottom:12px">';
-  tiers.forEach(t=>{
-    const g=scores.filter(s=>{const p=s.score/s.total;return p>=t.min&&p<t.max;}),pct=scores.length?Math.round(g.length/scores.length*100):0;
-    bh+='<div class="card" style="border-color:'+t.c+'44"><div style="color:'+t.c+';font-size:.83rem;font-weight:700;margin-bottom:6px">'+t.label+'</div><div style="font-size:2rem;color:'+t.c+';font-weight:300;line-height:1;margin-bottom:2px">'+g.length+'</div><div style="font-size:.73rem;color:var(--goldP);opacity:.68;margin-bottom:7px">'+pct+'% of class</div><div style="background:rgba(255,255,255,.06);border-radius:3px;height:4px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:'+t.c+'"></div></div>'+(g.length?'<div style="margin-top:8px;font-size:.71rem;color:var(--goldP);opacity:.62">'+g.map(s=>esc(s.name)).join(', ')+'</div>':'')+'</div>';
-  });
-  bh+='</div>';
-  if(scores.length){
-    bh+='<div class="card"><div style="color:var(--gold);font-size:.66rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:11px;font-weight:700">Score Progress — All Students</div>';
-    scores.forEach(s=>{const pct=s.pct,r=getRank(s.score/s.total);bh+='<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="color:var(--parch);font-size:.83rem">'+esc(s.name)+'</span><span style="color:'+r.color+';font-size:.83rem;font-weight:bold">'+s.score+'/'+s.total+' ('+pct+'%)</span></div><div style="background:rgba(255,255,255,.06);border-radius:3px;height:6px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:linear-gradient(90deg,#8B1A1A,'+r.color+');border-radius:3px"></div></div></div>';});
-    bh+='</div>';
-  }
-  document.getElementById('bkcontent').innerHTML=bh;
-
-  // Topics
-  const cats=[...new Set(ALL_QS.map(q=>q.c))];
-  let th='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:9px">';
-  cats.forEach(cat=>{
-    const qs=ALL_QS.filter(q=>q.c===cat);
-    th+='<div class="card"><div style="color:var(--goldL);font-size:.88rem;font-weight:700;margin-bottom:4px">'+cat+'</div><div style="color:var(--goldP);font-size:.71rem;opacity:.58;margin-bottom:7px">'+qs.length+' question'+(qs.length!==1?'s':'')+'</div>';
-    qs.forEach(q=>{th+='<div style="font-size:.74rem;color:var(--goldP);opacity:.68;margin-bottom:3px;padding-left:7px;border-left:2px solid rgba(201,149,58,.2);line-height:1.4">'+(q.q.length>68?q.q.slice(0,68)+'…':q.q)+'</div>';});
-    th+='</div>';
-  });
-  th+='</div>';document.getElementById('topcontent').innerHTML=th;
-
-  // Export
-  document.getElementById('exptxt').value=scores.length===0?'No scores yet.'
-    :'Ethiopian Orthodox End of Year Trivia — Dallas AGA\n'+'='.repeat(46)+'\n'+'Session PIN: '+pin+'\n\n'
-    +scores.map((s,i)=>`${i+1}. ${s.name.padEnd(22)} ${s.score}/${s.total} (${s.pct}%) — ${getRank(s.score/s.total).short}`).join('\n')
-    +'\n\nGenerated: '+new Date().toLocaleDateString();
-}
-
-function remSt(i){if(!confirm('Remove this student from the leaderboard?'))return;delSc(i);loadAdmin();}
-function askReset(){document.getElementById('rconf').style.display='block';document.getElementById('rbtn').style.display='none';}
-function cancelReset(){document.getElementById('rconf').style.display='none';document.getElementById('rbtn').style.display='block';}
-function doReset(){rstSc();loadAdmin();cancelReset();}
-function swTab(id,btn){document.querySelectorAll('.tpane').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
-
-// ══════════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════════
-(function init(){
-  getPin(); // ensure PIN exists on first load
-  updateHomePinVisibility();
-})();
-</script>
+<script src="script.js"></script>
 </body>
 </html>
